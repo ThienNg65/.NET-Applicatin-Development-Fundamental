@@ -16,3 +16,6 @@ Create Login mylogin with password='mylogin',
 	CHECK_POLICY = OFF 
 Use DVDLibrary 
 sp_changedbowner mylogin
+
+
+select * from DVDLibrary

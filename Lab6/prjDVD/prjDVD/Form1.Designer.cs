@@ -38,8 +38,8 @@
             this.cboLang = new System.Windows.Forms.ComboBox();
             this.updPrice = new System.Windows.Forms.NumericUpDown();
             this.grpSubTitles = new System.Windows.Forms.GroupBox();
-            this.radYes = new System.Windows.Forms.RadioButton();
             this.radNo = new System.Windows.Forms.RadioButton();
+            this.radYes = new System.Windows.Forms.RadioButton();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -126,6 +126,7 @@
             this.cboLang.Name = "cboLang";
             this.cboLang.Size = new System.Drawing.Size(167, 24);
             this.cboLang.TabIndex = 8;
+            this.cboLang.SelectedIndexChanged += new System.EventHandler(this.cboLang_SelectedIndexChanged);
             // 
             // updPrice
             // 
@@ -148,6 +149,7 @@
             0,
             0,
             0});
+            this.updPrice.ValueChanged += new System.EventHandler(this.updPrice_ValueChanged);
             // 
             // grpSubTitles
             // 
@@ -160,6 +162,17 @@
             this.grpSubTitles.TabStop = false;
             this.grpSubTitles.Text = "Subtitles";
             // 
+            // radNo
+            // 
+            this.radNo.AutoSize = true;
+            this.radNo.Location = new System.Drawing.Point(119, 43);
+            this.radNo.Name = "radNo";
+            this.radNo.Size = new System.Drawing.Size(46, 20);
+            this.radNo.TabIndex = 1;
+            this.radNo.Text = "No";
+            this.radNo.UseVisualStyleBackColor = true;
+            this.radNo.CheckedChanged += new System.EventHandler(this.radNo_CheckedChanged);
+            // 
             // radYes
             // 
             this.radYes.AutoSize = true;
@@ -171,16 +184,7 @@
             this.radYes.TabStop = true;
             this.radYes.Text = "Yes";
             this.radYes.UseVisualStyleBackColor = true;
-            // 
-            // radNo
-            // 
-            this.radNo.AutoSize = true;
-            this.radNo.Location = new System.Drawing.Point(119, 43);
-            this.radNo.Name = "radNo";
-            this.radNo.Size = new System.Drawing.Size(46, 20);
-            this.radNo.TabIndex = 1;
-            this.radNo.Text = "No";
-            this.radNo.UseVisualStyleBackColor = true;
+            this.radYes.CheckedChanged += new System.EventHandler(this.radYes_CheckedChanged);
             // 
             // btnAdd
             // 
@@ -190,6 +194,7 @@
             this.btnAdd.TabIndex = 11;
             this.btnAdd.Text = "Add new";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSave
             // 
@@ -199,6 +204,7 @@
             this.btnSave.TabIndex = 12;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
@@ -208,6 +214,7 @@
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmDVDCatalog
             // 
