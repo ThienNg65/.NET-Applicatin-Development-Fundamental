@@ -97,7 +97,7 @@ namespace prjQLCB
                 p2.Value = txtHoTen.Text.Trim();
 
                 SqlParameter p3 = new SqlParameter("@chucvu", System.Data.SqlDbType.Int);
-                p3.Value = cboChucVu.SelectedIndex;
+                p3.Value = cboChucVu.SelectedValue;
 
                 SqlParameter p4 = new SqlParameter("@sogio", System.Data.SqlDbType.Int);
                 p4.Value = Convert.ToInt32(txtSoGio.Text.Trim());
