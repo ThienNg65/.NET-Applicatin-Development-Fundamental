@@ -37,11 +37,14 @@ namespace Lab8
 
                         if (count > 0)
                         {
-                            HomePageForm homePageForm = new HomePageForm();
+                            HomePageForm homePageForm = new HomePageForm(maCB);
                             homePageForm.Show();
                             this.Hide();
                         }
-                        else { }
+                        else
+                        {
+                            MessageBox.Show("Mã cán bộ hoặc mật khẩu không đúng. Vui lòng thử lại.");
+                        }
                     }
                     catch (Exception ex)
                     {

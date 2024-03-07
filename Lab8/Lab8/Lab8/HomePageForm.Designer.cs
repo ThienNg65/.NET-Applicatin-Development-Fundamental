@@ -28,32 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstBox = new System.Windows.Forms.ListBox();
+            this.btnUpdateScore = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lstBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(48, 41);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(387, 228);
-            this.listBox1.TabIndex = 0;
+            this.lstBox.FormattingEnabled = true;
+            this.lstBox.ItemHeight = 16;
+            this.lstBox.Location = new System.Drawing.Point(48, 41);
+            this.lstBox.Name = "lstBox";
+            this.lstBox.Size = new System.Drawing.Size(695, 292);
+            this.lstBox.TabIndex = 0;
+            // 
+            // btnUpdateScore
+            // 
+            this.btnUpdateScore.Location = new System.Drawing.Point(329, 366);
+            this.btnUpdateScore.Name = "btnUpdateScore";
+            this.btnUpdateScore.Size = new System.Drawing.Size(136, 42);
+            this.btnUpdateScore.TabIndex = 1;
+            this.btnUpdateScore.Text = "Update Score";
+            this.btnUpdateScore.UseVisualStyleBackColor = true;
+            this.btnUpdateScore.Click += new System.EventHandler(this.btnUpdateScore_Click);
             // 
             // HomePageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.btnUpdateScore);
+            this.Controls.Add(this.lstBox);
             this.Name = "HomePageForm";
-            this.Text = "HomePageForm";
+            this.Text = "Home Page";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstBox;
+        private System.Windows.Forms.Button btnUpdateScore;
     }
 }

@@ -97,3 +97,13 @@ insert into GiangDay(MaCB, MaLop, MaMon) values ('003','K44-01','CT251')
 insert into GiangDay(MaCB, MaLop, MaMon) values ('003','K44-02','CT251')
 insert into GiangDay(MaCB, MaLop, MaMon) values ('003','K44-03','CT251')
 
+
+
+select m.MaMon, m.TenMon
+from MonHoc m join GiangDay g on m.MaMon = g.MaMon
+where MaCB = '001';
+
+SELECT s.MSSV, s.HoTen FROM SinhVien s
+	join Diem d on s.MSSV = d.MSSV
+WHERE d.MaMon = 'CT251'
+
