@@ -98,12 +98,28 @@ insert into GiangDay(MaCB, MaLop, MaMon) values ('003','K44-02','CT251')
 insert into GiangDay(MaCB, MaLop, MaMon) values ('003','K44-03','CT251')
 
 
+insert into Diem(MSSV,MaMon,Diem) values ('B18001', 'CT101', 10)
+insert into Diem(MSSV,MaMon,Diem) values ('B18001', 'CT103', 10)
+
+insert into Diem(MSSV,MaMon,Diem) values ('B18002', 'CT101', 10)
+insert into Diem(MSSV,MaMon,Diem) values ('B18002', 'CT103', 10)
+
+insert into Diem(MSSV,MaMon,Diem) values ('B18003', 'CT251', 10)
+insert into Diem(MSSV,MaMon,Diem) values ('B18003', 'CT101', 10)
+
+
+
 
 select m.MaMon, m.TenMon
 from MonHoc m join GiangDay g on m.MaMon = g.MaMon
 where MaCB = '001';
 
-SELECT s.MSSV, s.HoTen FROM SinhVien s
+SELECT s.MSSV, s.HoTen, d.MaMon, d.Diem FROM SinhVien s
 	join Diem d on s.MSSV = d.MSSV
 WHERE d.MaMon = 'CT251'
+
+UPDATE Diem
+SET Diem = '1'
+where MSSV = 'B18001' and MaMon = 'CT101'
+select *from Diem
 

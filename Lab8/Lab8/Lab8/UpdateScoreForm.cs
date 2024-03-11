@@ -25,7 +25,7 @@ namespace Lab8
                 try
                 {
                     con.Open();
-                    string query = "SELECT s.MSSV, s.HoTen FROM SinhVien s " +
+                    string query = "SELECT s.MSSV, s.HoTen, d.Diem FROM SinhVien s " +
                         "join Diem d on s.MSSV = d.MSSV " +
                         "WHERE d.MaMon = @MaMon";
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -36,7 +36,8 @@ namespace Lab8
                     {
                         string mssv = reader["MSSV"].ToString();
                         string hoTen = reader["HoTen"].ToString();
-                        dataGridViewStudents.Rows.Add(mssv, hoTen);
+                        string diem = reader["Diem"] != DBNull.Value ? reader["Diem"].ToString() : "";
+                        dataGridView1.Rows.Add(mssv, hoTen, diem);
                     }
 
                     reader.Close();
@@ -51,8 +52,15 @@ namespace Lab8
 
         private void btnSave_Click(object sender, System.EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridViewStudents.Rows)
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
+                // Check if the cell value is null before accessing it
+                if (row.Cells["MSSV"].Value == null || row.Cells["Diem"].Value == null)
+                {
+                    // Skip this row if either MSSV or Diem cell value is null
+                    continue;
+                }
+
                 string mssv = row.Cells["MSSV"].Value.ToString();
                 float diem = float.Parse(row.Cells["Diem"].Value.ToString());
 
@@ -70,7 +78,7 @@ namespace Lab8
                                          "INSERT (MSSV, MaMon, Diem) " +
                                          "VALUES (source.MSSV, source.MaMon, source.Diem);";*/
 
-                    string query = "UPDATE SinhVien SET Diem = @Diem WHERE MSSV = @MSSV AND MaMon = @MaMon";
+                    string query = "UPDATE Diem SET Diem = @Diem WHERE MSSV = @MSSV AND MaMon = @MaMon";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Diem", diem);
                     command.Parameters.AddWithValue("@MSSV", mssv);
