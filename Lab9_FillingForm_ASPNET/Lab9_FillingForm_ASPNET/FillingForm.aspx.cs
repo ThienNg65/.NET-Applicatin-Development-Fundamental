@@ -22,7 +22,36 @@ namespace Lab9_FillingForm_ASPNET
             lblThongBao.Text = "";
         }
 
-        protected void btnDangky_Click(object sender, EventArgs e)
+        bool checkMemeberExists()
+        {
+            try
+            {
+                clsDatabase.OpenConnection();
+                SqlCommand cmd = new SqlCommand("SELECT * from KhachHang where TenDN = @TenDN", clsDatabase.con);
+                cmd.Parameters.AddWithValue("@TenDN", txtTenDN.Text.Trim());
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                if (dt.Rows.Count >= 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+                return false;
+            }
+        }
+
+        void signUpNewUser()
         {
             try
             {
@@ -38,27 +67,28 @@ namespace Lab9_FillingForm_ASPNET
                 cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
                 cmd.Parameters.AddWithValue("@ThuNhap", txtThuNhap.Text);
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-
-                da.Fill(dt);
-
-                if (dt.Rows.Count >= 1)
-                {
-                    lblThongBao.Text = "Đăng ký không thành công";
-                    ResetFields(false);
-                }
-                else
-                {
-                    lblThongBao.Text = "Đăng ký thành công";
-                }
+                cmd.ExecuteNonQuery();
+                clsDatabase.CloseConnection();
             }
             catch (Exception ex)
             {
                 Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
+        }
 
-            /*lblThongBao.Text = "Đăng ký thành công";*/
+        protected void btnDangky_Click(object sender, EventArgs e)
+        {
+            if (checkMemeberExists())
+            {
+                lblThongBao.Text = "Tên đăng nhập đã được sử dụng. Vui lòng nhập tên khác.";
+                Response.Write("<script>alert('Tên đăng nhập đã được sử dụng. Vui lòng nhập tên khác.');</script>");
+            }
+            else
+            {
+                signUpNewUser();
+                lblThongBao.Text = "Đăng ký thành công.";
+                Response.Write("<script>alert('Đăng ký thành công.');</script>");
+            }
         }
     }
 
