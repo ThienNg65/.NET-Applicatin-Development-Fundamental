@@ -48,6 +48,8 @@ SELECT * FROM CanBo
 SELECT * FROM SinhVien
 SELECT * FROM Diem
 
+alter table SinhVien add GioiTinh nvarchar(10);
+
 
 INSERT INTO SinhVien (MSSV, HoTen, MaLop)
 VALUES 
