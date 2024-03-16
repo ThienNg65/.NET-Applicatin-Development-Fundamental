@@ -7,6 +7,11 @@
     <title></title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <style type="text/css">
+        .table-striped {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <form id="formStudent" runat="server">
@@ -22,23 +27,31 @@
 
                     <div class="row">
                         <div class="col">
-                            <asp:GridView CssClass="table table-striped" ID="gvStudent" runat="server" PageSize="10" OnPageIndexChanging="gvStudent_PageIndexChanging" AllowPaging="true" AutoGenerateColumns="false" ShowFooter="true" ShowHeaderWhenEmpty="true" DataKeyNames="MSSV" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+                            <asp:GridView CssClass="table table-striped" ID="gvStudent" runat="server" 
+
+                                OnRowCommand="gvStudent_RowCommand" OnRowEditing="gvStudent_RowEditing" OnRowCancelingEdit="gvStudent_RowCancelingEdit"
+                                OnRowUpdating="gvStudent_RowUpdating" OnRowDeleting="gvStudent_RowDeleting"
+
+                                PageSize="10" OnPageIndexChanging="gvStudent_PageIndexChanging" AllowPaging="true" 
+                                AutoGenerateColumns="false" ShowFooter="true" ShowHeaderWhenEmpty="true" 
+                                DataKeyNames="MSSV" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" 
+                                BorderWidth="1px" CellPadding="3">
                                 <Columns>
-                                    <asp:TemplateField ItemStyle-Width="100px" HeaderText="#">
+                                    <asp:TemplateField  ItemStyle-Width="150px" HeaderText="">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="btnEdit" runat="server">Edit</asp:LinkButton>
-                                            <asp:LinkButton ID="btnDelete" runat="server">Delete</asp:LinkButton>
-                                            <asp:LinkButton ID="btnSelect" runat="server">Select</asp:LinkButton>
+                                            <asp:LinkButton ID="btnEdit" CommandName="Edit" ToolTip="Edit" runat="server">Edit</asp:LinkButton>
+                                            <asp:LinkButton ID="btnDelete" CommandName="Delete" ToolTip="Delete" runat="server">Delete</asp:LinkButton>
+                                            <asp:LinkButton ID="btnSelect" CommandName="Select" ToolTip="Select" runat="server">Select</asp:LinkButton>
                                         </ItemTemplate>
 
                                         <EditItemTemplate>
-                                            <asp:LinkButton ID="btnEdit" runat="server">Edit</asp:LinkButton>
-                                            <asp:LinkButton ID="btnDelete" runat="server">Delete</asp:LinkButton>
-                                            <asp:LinkButton ID="btnSelect" runat="server">Select</asp:LinkButton>
+                                            <asp:LinkButton ID="btnUpdate" CommandName="Update" ToolTip="Update" runat="server">Update</asp:LinkButton>
+                                            <asp:LinkButton ID="Cancel" CommandName="Cancel" ToolTip="Cancel" runat="server">Cancel</asp:LinkButton>
+                                            <asp:LinkButton ID="btnSelect" CommandName="Select" ToolTip="Select" runat="server">Select</asp:LinkButton>
                                         </EditItemTemplate>
 
                                         <FooterTemplate>
-                                            <asp:LinkButton ID="btnAdd" runat="server">Add new</asp:LinkButton>
+                                            <asp:LinkButton ID="btnAdd" CommandName="AddNew" ToolTip="Add new" runat="server">Add new</asp:LinkButton>
                                         </FooterTemplate>
 
                                         <ItemStyle Width="50px"></ItemStyle>
@@ -50,7 +63,7 @@
                                         </ItemTemplate>
 
                                         <EditItemTemplate>
-                                            <asp:TextBox ID="txtMSSV" runat="server" Text='<%# Eval("MSSV") %>'></asp:TextBox>
+                                            <asp:TextBox ID="txtMSSV" runat="server" Text='<%# Eval("MSSV") %>' ReadOnly="true"></asp:TextBox>
                                         </EditItemTemplate>
 
                                         <FooterTemplate>
@@ -78,7 +91,8 @@
 
                                     <asp:TemplateField ItemStyle-Width="100px" HeaderText="Phái">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblGioiTinh" runat="server" Text='<%# Eval("GioiTinh") %>'></asp:Label>
+                                            <asp:Label ID="lblGioiTinh" runat="server" Text='<%# Eval("GioiTinh") %>' style="text-align: center"></asp:Label>
+                                            <br />
                                         </ItemTemplate>
 
                                         <EditItemTemplate>

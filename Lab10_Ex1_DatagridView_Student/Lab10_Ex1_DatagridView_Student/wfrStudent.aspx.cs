@@ -41,11 +41,11 @@ namespace Lab10_Ex1_DatagridView_Student
                     gvStudent.Rows[0].Cells[0].Text = "No Data found...!";
                     gvStudent.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
                 }
-
+                clsDatabase.CloseConnection();
             }
             catch (Exception ex)
             {
-
+                Response.Write(ex.Message);
             }
         }
 
@@ -53,6 +53,105 @@ namespace Lab10_Ex1_DatagridView_Student
         {
             gvStudent.PageIndex = e.NewPageIndex;
             loadDataStudent();
+        }
+
+        protected void gvStudent_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("AddNew"))
+            {
+                try
+                {
+                    clsDatabase.OpenConnection();
+                    string query = "INSERT INTO SinhVien (MSSV, HoTen, GioiTinh, MaLop) VALUES (@MSSV, @HoTen, @GioiTinh, @MaLop)";
+                    SqlCommand cmd = new SqlCommand(query, clsDatabase.con);
+
+                    cmd.Parameters.AddWithValue("@MSSV", (gvStudent.FooterRow.FindControl("txtMSSVFooter") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@HoTen", (gvStudent.FooterRow.FindControl("txtHoTenFooter") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@GioiTinh", (gvStudent.FooterRow.FindControl("txtGioiTinhFooter") as TextBox).Text.Trim());
+                    cmd.Parameters.AddWithValue("@MaLop", (gvStudent.FooterRow.FindControl("txtMaLopFooter") as TextBox).Text.Trim());
+
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<script>alert('New Student Added');</script>");
+
+                    loadDataStudent();
+                    lblSuccessMessage.Text = "New Student Added";
+
+                    lblErrorMessage.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                }
+            }
+
+        }
+
+        protected void gvStudent_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            gvStudent.EditIndex = e.NewEditIndex;
+            loadDataStudent();
+        }
+
+        protected void gvStudent_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvStudent.EditIndex = -1;
+            loadDataStudent();
+        }
+
+        protected void gvStudent_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            try
+            {
+                clsDatabase.OpenConnection();
+                string query = "UPDATE SinhVien SET HoTen=@HoTen,GioiTinh=@GioiTinh,MaLop=@MaLop WHERE MSSV=@MSSV";
+                SqlCommand cmd = new SqlCommand(query, clsDatabase.con);
+
+                cmd.Parameters.AddWithValue("@MSSV", (gvStudent.DataKeys[e.RowIndex].Value.ToString()));
+                cmd.Parameters.AddWithValue("@HoTen", (gvStudent.Rows[e.RowIndex].FindControl("txtHoTen") as TextBox).Text.Trim());
+                cmd.Parameters.AddWithValue("@GioiTinh", (gvStudent.Rows[e.RowIndex].FindControl("txtGioiTinh") as TextBox).Text.Trim());
+                cmd.Parameters.AddWithValue("@MaLop", (gvStudent.Rows[e.RowIndex].FindControl("txtMaLop") as TextBox).Text.Trim());
+
+                cmd.ExecuteNonQuery();
+
+                gvStudent.EditIndex = -1;
+                loadDataStudent();
+                Response.Write("<script>alert('Updated!');</script>");
+                lblSuccessMessage.Text = "Selected Record Updated";
+
+                lblErrorMessage.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                lblSuccessMessage.Text = "";
+                lblErrorMessage.Text = ex.Message;
+            }
+        }
+
+        protected void gvStudent_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                clsDatabase.OpenConnection();
+                string query = "DELETE FROM SinhVien WHERE MSSV=@MSSV";
+                SqlCommand cmd = new SqlCommand(query, clsDatabase.con);
+
+                cmd.Parameters.AddWithValue("@MSSV", (gvStudent.DataKeys[e.RowIndex].Value.ToString()));
+
+                cmd.ExecuteNonQuery();
+
+                loadDataStudent();
+                Response.Write("<script>alert('Deleted!');</script>");
+                lblSuccessMessage.Text = "Selected Record deleted";
+
+                lblErrorMessage.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                lblSuccessMessage.Text = "";
+                lblErrorMessage.Text = ex.Message;
+            }
         }
     }
 
